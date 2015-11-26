@@ -15,15 +15,22 @@ class Timer(QDialog, mainGui2.Ui_Dialog):
         super(Timer, self).__init__(parent)
         self.setupUi(self)
         
-        self.workerThread = WorkerThread()
- 
-        self.connect(self.pushButton, SIGNAL("clicked()"), self.initUI) #kaynnistetaan workerThread initUI-metodin kautta Aloita! -nappia painamalla     
+        self.workerThread = WorkerThread() 
+        self.connect(self.pushButton, SIGNAL("clicked()"), self.initUI) #init the workerThread   
         self.connect(self.pushButton_2, SIGNAL("clicked()"), self.closeApp)
-
-        self.connect(self.workerThread, SIGNAL("threadDone()"), self.threadDone) #monitoroi emitoituja signaaleja workerThreadista
+        
+        self.connect(self.workerThread, SIGNAL("updateMinutes(QString)"), self.updateMinutes)
+        self.connect(self.workerThread, SIGNAL("updateHorizontalSlider(QString)"), self.updateHorizontalSlider)
+        self.connect(self.workerThread, SIGNAL("threadDone()"), self.threadDone) 
     
     def initUI(self):
-        self.workerThread.start() 
+        self.workerThread.start()
+        
+    def updateMinutes(self, minutes):
+        self.lcdNumber.display(int(minutes))
+        
+    def updateHorizontalSlider(self, minutes):
+        self.horizontalSlider.setValue(int(minutes))
 
     def threadDone(self):
         QMessageBox.information(self, "Valmis", "AIKA LOPPUI!")     
@@ -41,10 +48,10 @@ class WorkerThread(QThread):
         time.sleep(1)
    
         while val >= 0:
-            form.lcdNumber.display(val) #paivita lcd-elementti UI:lla
-            time.sleep(60)
+            self.emit(SIGNAL("updateMinutes(QString)"), str(val)) #update the LCD display
+            self.emit(SIGNAL("updateHorizontalSlider(QString)"), str(val)) #move slider step back
+            time.sleep(1)
             val = val - 1
-            form.horizontalSlider.setValue(val) #siirra slider pykalan verran vasemmalle eli takaisinpain
 
         sound = "1.wav"
         winsound.PlaySound(sound, winsound.SND_FILENAME)
