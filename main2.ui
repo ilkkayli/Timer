@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>443</width>
-    <height>178</height>
+    <width>436</width>
+    <height>196</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -19,13 +19,13 @@
   <property name="layoutDirection">
    <enum>Qt::RightToLeft</enum>
   </property>
-  <widget class="QLCDNumber" name="lcdNumber">
+  <widget class="QLCDNumber" name="lcdNumberMinutes">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>40</x>
      <y>20</y>
      <width>161</width>
-     <height>141</height>
+     <height>161</height>
     </rect>
    </property>
    <property name="font">
@@ -37,11 +37,11 @@
     <number>2</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="startButton">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>20</y>
+     <x>310</x>
+     <y>100</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -55,14 +55,14 @@
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
-    <string>Aloita!</string>
+    <string>Start!</string>
    </property>
   </widget>
   <widget class="QSlider" name="horizontalSlider">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>130</y>
+     <x>310</x>
+     <y>50</y>
      <width>91</width>
      <height>31</height>
     </rect>
@@ -77,28 +77,28 @@
     <enum>Qt::Horizontal</enum>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_2">
+  <widget class="QPushButton" name="quitButton">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>60</y>
+     <x>310</x>
+     <y>150</y>
      <width>91</width>
-     <height>21</height>
+     <height>31</height>
     </rect>
    </property>
    <property name="focusPolicy">
     <enum>Qt::NoFocus</enum>
    </property>
    <property name="text">
-    <string>Sulje</string>
+    <string>Quit</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>290</x>
-     <y>95</y>
-     <width>81</width>
+     <x>310</x>
+     <y>20</y>
+     <width>111</width>
      <height>21</height>
     </rect>
    </property>
@@ -114,7 +114,25 @@
     <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
-    <string>Aseta aika</string>
+    <string>Set Minutes</string>
+   </property>
+  </widget>
+  <widget class="QLCDNumber" name="lcdNumberSeconds">
+   <property name="geometry">
+    <rect>
+     <x>220</x>
+     <y>20</y>
+     <width>71</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>26</pointsize>
+    </font>
+   </property>
+   <property name="digitCount">
+    <number>2</number>
    </property>
   </widget>
  </widget>
@@ -123,7 +141,7 @@
   <connection>
    <sender>horizontalSlider</sender>
    <signal>sliderMoved(int)</signal>
-   <receiver>lcdNumber</receiver>
+   <receiver>lcdNumberMinutes</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
